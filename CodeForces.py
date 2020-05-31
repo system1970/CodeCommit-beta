@@ -25,7 +25,6 @@ auth = firebase.auth()
 email = input('Email: ')
 password = input('Password: ')
 user = auth.sign_in_with_email_and_password(email,password)
-auth.get_account_info(user['idToken'])
 
     # getting submissions
 r = requests.get("https://codeforces.com/api/user.status?handle=pracurser&from=1&count=50")
@@ -84,6 +83,11 @@ for i in range(len(json_format)):
         f = open(file_path, "w") 
         f.write(solution) 
         f.close() 
+
+        #Attempts to replace:
+        #Attempt - 1
+        create_repo = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/readme")
+        print(create_repo.json())
 
         PATH_OF_GIT_REPO = "D:\CodingStuff\ZCodeforcesProject\CodeForces-1\.git"  # make sure .git folder is properly configured
         COMMIT_MESSAGE = 'Solutions have been added'
