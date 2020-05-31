@@ -3,30 +3,35 @@ import datetime
 from pytz import timezone
 from tzlocal import get_localzone
 import os
+import pyrebase
 from git import Repo
 from bs4 import BeautifulSoup as bs4
+import threading
 
-# push request 
-def push_Request():
-    query = int(input())
-    if(query)==1:
-        return True
-    elif(query)==0:
-        return False
-    else:
-        push_Request()
-# push to github function
-def git_push():
-    try:
-        repo = Repo(PATH_OF_GIT_REPO)
-        repo.git.add(update=True)
-        repo.index.commit(COMMIT_MESSAGE)
-        origin = repo.remote(name='origin')
-        origin.push()
-    except:
-        print('Some error occured while pushing the code')  
+#User authentication
+config = {
+  "apiKey": "AIzaSyDDiXvLTuO_ECz0WOUol-9ErxeKOkD3A3E",
+  "authDomain": "codeforces-ee268.firebaseapp.com",
+  "databaseURL": "https://codeforces-ee268.firebaseio.com",
+  "projectId": "codeforces-ee268",
+  "storageBucket": "codeforces-ee268.appspot.com",
+  "messagingSenderId": "1032774108703",
+  "appId": "1:1032774108703:web:5d3658fa94d3270022f72a",
+  "measurementId": "G-EF718751VF"
+}
 
-# getting submissions
+# firebase = pyrebase.initialize_app(config)
+# auth = firebase.auth()
+# email = input('Email: ')
+# password = input('Password: ')
+# user = auth.sign_in_with_email_and_password(email,password)
+# gitToken = input("Enter you git token: ")
+# create_repo = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/readme")
+# print(create_repo.json())
+
+# auth.get_account_info(user['idToken'])
+
+    # getting submissions
 r = requests.get("https://codeforces.com/api/user.status?handle=pracurser&from=1&count=50")
 json_format_before = r.json()
 json_format = []
@@ -39,7 +44,6 @@ for i in range(50):
     format = "%d"
     # Current time in UTC
     UTC = datetime.datetime.now(timezone('UTC'))
-    print(UTC.strftime(format))
     # Convert to local time zone
     local = UTC.astimezone(get_localzone())
     if (datetime.datetime.now().day==value.day):    # TODO: convert now() to current timezone
@@ -88,12 +92,13 @@ for i in range(len(json_format)):
         COMMIT_MESSAGE = 'Solutions have been added'
 
         #Push request
-        if(push_Request()):
-            git_push()
-        
+        repo = Repo(PATH_OF_GIT_REPO)
+        repo.git.add(update=True)
+        repo.index.commit(COMMIT_MESSAGE)
+        origin = repo.remote(name='origin')
+        origin.push()
 
-
-# TODO: push to github(os indep.)
+# TODO: push to github(os indep.) 70%-complete...
 # TODO: schedule
 # watch system design yt vids ... gaurav sen, tushor roy
 
