@@ -91,10 +91,12 @@ for i in range(len(json_format)):
         #Attempt - 2
         with open('README.md', 'r') as f:
             content = f.read()
+            url_link_to_api = requests.get("https://api.github.com/repos/system1970/CodeForces/contents/README.md")
+            sha = url_link_to_api.json()["sha"]
             payload = {"message": "Add text.txt",
                     "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
                     "content": "IyBDb2RlRm9yY2VzClVzaW5nIHRoZSBjb2RlZm9yY2VzIGFwaSB0byB1cGRh\ndGUgeW91ciBnaXRodWIgcGFnZSB3aXRoIHRoZSBzb2x1dGlvbnMgeW91IHN1\nYm1pdCBldmVyeSBkYXkuV09SS0lORyEhISE=\n",
-                    "sha": "5a5079220fe018b6d88dd801e40d95295b804694"}
+                    "sha": sha}
             result = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/README.md", 
                                 auth=("system1970", "LootG0ld"), 
                                 json=payload)
