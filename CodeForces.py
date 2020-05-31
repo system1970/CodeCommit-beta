@@ -3,10 +3,10 @@ import datetime
 from pytz import timezone
 from tzlocal import get_localzone
 import os
+import json
 import pyrebase
 from git import Repo
 from bs4 import BeautifulSoup as bs4
-import threading
 
 #User authentication
 config = {
@@ -85,9 +85,19 @@ for i in range(len(json_format)):
         f.close() 
 
         #Attempts to replace:
-        #Attempt - 1
-        create_repo = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/readme")
-        print(create_repo.json())
+        #Attempt - 1 (FAIL)
+        # create_repo = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/README.md")
+        # print(create_repo.json())
+        #Attempt - 2
+        with open('README.md', 'r') as f:
+            content = f.read()
+            payload = {"message": "Add text.txt",
+                    "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
+                    "content": "blahblahthegreat"}
+            result = requests.put("https://api.github.com/repos/<GitHubLogin>/<Repo>/contents/README.md", 
+                                auth=("system1970", "LootG0ld"), 
+                                json=payload)
+            print(result.json())
 
         PATH_OF_GIT_REPO = "D:\CodingStuff\ZCodeforcesProject\CodeForces-1\.git"  # make sure .git folder is properly configured
         COMMIT_MESSAGE = 'Solutions have been added'
