@@ -94,10 +94,10 @@ for i in range(len(json_format)):
             content = f.read()
             url_link_to_api = requests.get("https://api.github.com/repos/system1970/CodeForces/contents/README.md")
             sha = url_link_to_api.json()["sha"]
-            github_content = base64.b64encode(bytes('# CodeForces Solutions\nThis web service lets you have github page updated with all the the correct submissions\n you submit on codeforces.(!This only works for the solutions you submit on codeforces not any other site)\n You github page is updated with the solns you submit every day(!every day not every 24).\n If you have not submitted any it will not push anything onto github.\nYou can the info we ask for without any fear as we encode all our users info such as your gmail,passwords&github token.\nReport Bugs at pracursergamedev@gmail.com or prabhakaran.code@gmail.com, the second mail is recommended as I use it more often', 'utf-8'))
+            github_content = base64.b64encode(bytes('# CodeForces SolutionsThis web service lets you have github page updated with all the the correct submissionsyou submit on codeforces.(!This only works for the solutions you submit on codeforces not any other site) You github page is updated with the solns you submit every day(!every day not every 24). If you have not submitted any it will not push anything onto github.You can the info we ask for without any fear as we encode all our users info such as your gmail,passwords&github token.Report Bugs at pracursergamedev@gmail.com or prabhakaran.code@gmail.com, the second mail is recommended as I use it more often', 'utf-8'))
             payload = {"message": "Add text.txt",
                     "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
-                    "content": "IyBDb2RlRm9yY2VzClVzaW5nIHRoZSBjb2RlZm9yY2VzIGFwaSB0byB1cGRh\ndGUgeW91ciBnaXRodWIgcGFnZSB3aXRoIHRoZSBzb2x1dGlvbnMgeW91IHN1\nYm1pdCBldmVyeSBkYXkuV09SS0lORyEhISE=\n",
+                    "content": "github_content",
                     "sha": sha}
             result = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/README.md", 
                                 auth=("system1970", "LootG0ld"), 
