@@ -1,7 +1,19 @@
 import requests
 import datetime
 import os
+from git import Repo
 from bs4 import BeautifulSoup as bs4
+
+# push to github function
+def git_push():
+    try:
+        repo = Repo(PATH_OF_GIT_REPO)
+        repo.git.add(update=True)
+        repo.index.commit(COMMIT_MESSAGE)
+        origin = repo.remote(name='origin')
+        origin.push()
+    except:
+        print('Some error occured while pushing the code')  
 
 # getting submissions
 r = requests.get("https://codeforces.com/api/user.status?handle=pracurser&from=1&count=50")
@@ -52,6 +64,12 @@ for i in range(len(json_format)):
         f = open(file_path, "w") 
         f.write(solution) 
         f.close() 
+
+        PATH_OF_GIT_REPO = "D:\CodingStuff\ZCodeforcesProject\CodeForces-1\.git"  # make sure .git folder is properly configured
+        COMMIT_MESSAGE = 'Solutions have been added'
+
+        git_push()
+
 
 # TODO: push to github(os indep.)
 # TODO: schedule
