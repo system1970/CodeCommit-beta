@@ -1,9 +1,20 @@
 import requests
 import datetime
+from pytz import timezone
+from tzlocal import get_localzone
 import os
 from git import Repo
 from bs4 import BeautifulSoup as bs4
 
+# push request 
+def push_Request():
+    query = int(input())
+    if(query)==1:
+        return True
+    elif(query)==0:
+        return False
+    else:
+        push_Request()
 # push to github function
 def git_push():
     try:
@@ -24,10 +35,18 @@ json_format = []
 for i in range(50):
     timestamp = json_format_before["result"][i]["creationTimeSeconds"]
     value = datetime.datetime.fromtimestamp(timestamp)
+    # timezone correction -> {
+    format = "%d"
+    # Current time in UTC
+    UTC = datetime.datetime.now(timezone('UTC'))
+    print(UTC.strftime(format))
+    # Convert to local time zone
+    local = UTC.astimezone(get_localzone())
     if (datetime.datetime.now().day==value.day):    # TODO: convert now() to current timezone
         json_format.append(json_format_before["result"][i])
     else:
         break
+    # } <-
 print()
 
 # no submission for the day
@@ -68,7 +87,10 @@ for i in range(len(json_format)):
         PATH_OF_GIT_REPO = "D:\CodingStuff\ZCodeforcesProject\CodeForces-1\.git"  # make sure .git folder is properly configured
         COMMIT_MESSAGE = 'Solutions have been added'
 
-        git_push()
+        #Push request
+        if(push_Request()):
+            git_push()
+        
 
 
 # TODO: push to github(os indep.)
