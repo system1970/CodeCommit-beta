@@ -94,7 +94,7 @@ for i in range(len(json_format)):
             payload = {"message": "Add text.txt",
                     "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
                     "content": "blahblahthegreat"}
-            result = requests.put("https://api.github.com/repos/<GitHubLogin>/<Repo>/contents/README.md", 
+            result = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/README.md", 
                                 auth=("system1970", "LootG0ld"), 
                                 json=payload)
             print(result.json())
