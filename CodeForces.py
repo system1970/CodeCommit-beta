@@ -20,16 +20,12 @@ config = {
   "measurementId": "G-EF718751VF"
 }
 
-# firebase = pyrebase.initialize_app(config)
-# auth = firebase.auth()
-# email = input('Email: ')
-# password = input('Password: ')
-# user = auth.sign_in_with_email_and_password(email,password)
-# gitToken = input("Enter you git token: ")
-# create_repo = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/readme")
-# print(create_repo.json())
-
-# auth.get_account_info(user['idToken'])
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
+email = input('Email: ')
+password = input('Password: ')
+user = auth.sign_in_with_email_and_password(email,password)
+auth.get_account_info(user['idToken'])
 
     # getting submissions
 r = requests.get("https://codeforces.com/api/user.status?handle=pracurser&from=1&count=50")
@@ -81,7 +77,8 @@ for i in range(len(json_format)):
         solution = str(add_prblm_link).replace("</pre>]","")
         print(solution)
 
-        # write to file
+        # write to file #TODO: remove the writable file 
+        # directly create the file in github with it's api->{
         script_dir = os.path.dirname(__file__)
         file_path = os.path.join(script_dir, "./Codeforces/"+str(problem_type)+"/"+str(problem_name)+".py") # TODO: generalize for lang
         f = open(file_path, "w") 
@@ -90,6 +87,7 @@ for i in range(len(json_format)):
 
         PATH_OF_GIT_REPO = "D:\CodingStuff\ZCodeforcesProject\CodeForces-1\.git"  # make sure .git folder is properly configured
         COMMIT_MESSAGE = 'Solutions have been added'
+        # } <I_I>-->(BAD)
 
         #Push request
         repo = Repo(PATH_OF_GIT_REPO)
