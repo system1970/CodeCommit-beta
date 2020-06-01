@@ -8,3 +8,5 @@ print(math.ceil(n/5))
 for i in "island":
     if i=="is":
         print("HEY HO MATEY")
+    else:
+        pass
