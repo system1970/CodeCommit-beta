@@ -103,6 +103,7 @@ for i in range(len(json_format)):
         readme = requests.put("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/Codeforces/"+str(problem_type)+"/"+str(problem_name)+".py", 
                             headers={'Authorization': 'access_token 56b598f32884e88047a628d4a8df393918fce5af'}, 
                             json=payload)
+        print(readme)
 
         PATH_OF_GIT_REPO = "D:\CodingStuff\ZCodeforcesProject\CodeForces-1\.git"  # make sure .git folder is properly configured
         COMMIT_MESSAGE = 'Solutions have been added'
