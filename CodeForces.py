@@ -93,7 +93,7 @@ for i in range(len(json_format)):
         #Attempt - 2 (SUCCESS)
         # Update README.md
         # TODO: Remove the below line
-        repo_name = input("Enter your repos name") # Temporary only for the devs use
+        repo_name = input("Enter your repos name: ") # Temporary only for the devs use
         file_text = solution
         urlSafeEncodedBytes = base64.urlsafe_b64encode(file_text.encode("utf-8"))
         urlSafeEncodedStr = str(urlSafeEncodedBytes, "utf-8")
