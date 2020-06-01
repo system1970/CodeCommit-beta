@@ -4,4 +4,7 @@
 import math
 
 n = int(input())
-print(math.ceil(n/5))
+print(math.ceil(n/5))
+for i in "island":
+    if i=="is":
+        print("HEY HO MATEY")
