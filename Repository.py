@@ -2,8 +2,14 @@ from github import Github
 import base64
 import requests
 # Temporary name (for test purposes ONly!!) #TODO: Change the repo name it's just plain bad 
-
 repo_name = input("Enter repo name: ")
+try:
+    g = Github("a725b3cb66377aea2e2233e9f299b31362784310")  # safer alternative, if you have an access token
+    u = g.get_user()
+    repo = u.create_repo(repo_name)
+except:
+    pass
+
 sha_link = requests.get("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/README.md")
 try:    
     sha = sha_link.json()['sha']
@@ -27,6 +33,7 @@ except:
     readme = requests.put("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/README.md", 
                         auth=("system1970", "LootG0ld"), 
                         json=payload)
+
 # payload = {"message": "created the solutions folder",
 #         "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
 #         "content": }
