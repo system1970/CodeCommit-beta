@@ -89,33 +89,31 @@ for i in range(len(json_format)):
         #Attempt - 1 (FAIL)
         # create_repo = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/README.md")
         # print(create_repo.json())
-        #Attempt - 2
-        with open('README.md', 'r') as f:
-            content = f.read()
-            url_link_to_api = requests.get("https://api.github.com/repos/system1970/CodeForces/contents/README.md")
-            sha = url_link_to_api.json()["sha"]
-            data = "# CodeForces Solutions\nThis web service lets you have github page updated with all the the correct submissions\n you submit on codeforces.(!This only works for the solutions you submit on codeforces not any other site)\n You github page is updated with the solns you submit every day(!every day not every 24).\n If you have not submitted any it will not push anything onto github.\nYou can the info we ask for without any fear as we encode all our users info such as your gmail,passwords&github token.\nReport Bugs at pracursergamedev@gmail.com or prabhakaran.code@gmail.com, the second mail is recommended as I use it more often"
-            urlSafeEncodedBytes = base64.urlsafe_b64encode(data.encode("utf-8"))
-            urlSafeEncodedStr = str(urlSafeEncodedBytes, "utf-8")
-            payload = {"message": "Add text.txt",
-                    "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
-                    "content": urlSafeEncodedStr,
-                    "sha": sha}
-            result = requests.put("https://api.github.com/repos/system1970/CodeForces/contents/README.md", 
-                                auth=("system1970", "LootG0ld"), 
-                                json=payload)
-            print(result.json())
+        #Attempt - 2 (SUCCESS)
+        # Update README.md
+        # TODO: Remove the below line
+        repo_name = input("Enter your repos name") # Temporary only for the devs use
+        file_text = solution
+        urlSafeEncodedBytes = base64.urlsafe_b64encode(file_text.encode("utf-8"))
+        urlSafeEncodedStr = str(urlSafeEncodedBytes, "utf-8")
+        payload = {"message": "created readme.md file in the repo",
+                "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
+                "content": urlSafeEncodedStr}
+        readme = requests.put("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/Codeforces/"+str(problem_type)+"/"+str(problem_name)+".py", 
+                            auth=("system1970", "LootG0ld"), 
+                            json=payload)
 
         PATH_OF_GIT_REPO = "D:\CodingStuff\ZCodeforcesProject\CodeForces-1\.git"  # make sure .git folder is properly configured
         COMMIT_MESSAGE = 'Solutions have been added'
-        # } <I_I>-->(BAD)
+        # # } <I_I>-->(BAD)
 
-        #Push request
+        # Push to github
         repo = Repo(PATH_OF_GIT_REPO)
         repo.git.add(update=True)
         repo.index.commit(COMMIT_MESSAGE)
         origin = repo.remote(name='origin')
         origin.push()
+        # Use github api to push files
 
 # TODO: push to github(os indep.) 70%-complete...
 # TODO: schedule
