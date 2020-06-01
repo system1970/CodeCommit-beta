@@ -84,6 +84,7 @@ for i in range(len(json_format)):
         f = open(file_path, "w") 
         f.write(solution) 
         f.close() 
+        # }<-
 
         #Attempts to replace:
         #Attempt - 1 (FAIL)
