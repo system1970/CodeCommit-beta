@@ -93,7 +93,7 @@ for i in range(len(json_format)):
         # TODO: Remove the below line
         repo_name = input("Enter your repos name: ") # Temporary only for the devs use
         file_text = solution
-        sha_link = requests.get("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/Codeforces/"+str(problem_type)+"/"+str(problem_name)+".py")
+        sha_link = requests.get("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/"+str(problem_type)+"/"+str(problem_name)+".py")
         try:    
             sha = sha_link.json()['sha']
             urlSafeEncodedBytes = base64.urlsafe_b64encode(file_text.encode("utf-8"))
@@ -102,7 +102,7 @@ for i in range(len(json_format)):
                     "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
                     "content": urlSafeEncodedStr,
                     "sha": sha}
-            readme = requests.put("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/Codeforces/"+str(problem_type)+"/"+str(problem_name)+".py", 
+            readme = requests.put("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/"+str(problem_type)+"/"+str(problem_name)+".py", 
                                 auth=("system1970", "a725b3cb66377aea2e2233e9f299b31362784310"), 
                                 json=payload)
         except:
@@ -111,7 +111,7 @@ for i in range(len(json_format)):
             payload = {"message": "added solutions to repo",
                     "author": {"name": "system1970","email": "prabhakaran.code@gmail.com"},
                     "content": urlSafeEncodedStr}
-            readme = requests.put("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/Codeforces/"+str(problem_type)+"/"+str(problem_name)+".py", 
+            readme = requests.put("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/"+str(problem_type)+"/"+str(problem_name)+".py", 
                                 auth=("system1970", "a725b3cb66377aea2e2233e9f299b31362784310"), 
                                 json=payload)
 
