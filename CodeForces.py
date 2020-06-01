@@ -91,7 +91,7 @@ for i in range(len(json_format)):
         #Attempt - 2 (SUCCESS)
         # Update README.md
         # TODO: Remove the below line
-        repo_name = input("Enter your repos name") # Temporary only for the devs use
+        repo_name = input("Enter your repos name: ") # Temporary only for the devs use
         file_text = solution
         sha_link = requests.get("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/Codeforces/"+str(problem_type)+"/"+str(problem_name)+".py")
         try:    
