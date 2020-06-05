@@ -1,7 +1,8 @@
+
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
-from flask import Flask
-# from flask import render_template
+from flask import *
+
 # from flask import request
 
 
@@ -11,6 +12,6 @@ app = Flask(__name__)
 
 # -- Routes section --
 @app.route('/')
-@app.route('/index')
+
 def index():
-    return "hello world"
+    return render_template("index.html")

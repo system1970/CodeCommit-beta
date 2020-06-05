@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup as bs4
 
 TASKS = [""]
 CURRENT_TASK = []
+def Add_To_Database(data):
+    db.child("userInfo").child("OwnKey").set(data)
 
 def User_Creation():
     user = auth.create_user_with_email_and_password(email,password)
@@ -29,6 +31,7 @@ config = {
 }
 
 firebase = pyrebase.initialize_app(config)
+db = firebase.database()
 auth = firebase.auth()
 email = input('Email: ')
 password = input('Password: ')
@@ -36,7 +39,10 @@ password = input('Password: ')
 #     User_Creation()
 # except:
 #     user = auth.sign_in_with_email_and_password(email,password)
-user = auth.sign_in_with_email_and_password(email,password)
+try:
+    user = auth.sign_in_with_email_and_password(email,password)
+except:
+    user = auth.create_user_with_email_and_password(email,password)
 # user = auth.sign_in_with_email_and_password(email,password)
 print(user)
 
@@ -108,6 +114,11 @@ for i in range(len(json_format)):
         # TODO: Remove the below line
         file_text = solution
         sha_link = requests.get("https://api.github.com/repos/system1970/"+str(repo_name)+"/contents/"+str(problem_type)+"/"+str(problem_name)+".py")
+        gitToken = input("ENTER YOUR GET PERSONAL TOKEN: ")
+        data = {"gitToken":gitToken}
+        db.child("userInfo").push(data)
+        userToken = db.child("userInfo").get()
+        print(userToken)
         try:    
             sha = sha_link.json()['sha']
             urlSafeEncodedBytes = base64.urlsafe_b64encode(file_text.encode("utf-8"))
